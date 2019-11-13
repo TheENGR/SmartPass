@@ -8,3 +8,9 @@ https://dictionary.cambridge.org/us/grammar/british-grammar/adjectives-order
 Python Starters:
 https://www.practicepython.org/solution/2014/06/06/16-password-generator-solutions.html
 https://pynative.com/python-generate-random-string/
+
+Colors:
+https://color-ize.com/color-list.php#top
+
+Size:
+https://www.sightwordsgame.com/parts-of-speech/adjectives/size/
