@@ -9,9 +9,10 @@ def main():
     rules['specialChars'] = "!@#$%^&*()_+-=[]{}:`~;',<>./?\|"
     rules['minchars'] = 10
     rules['maxchars'] = 20
-    rules['chardex'] = []
     rules['repchars'] = 5
+    rules['chardex'] = []
     rules['mincount'] = []
+    rules['swaps'] = []
 
     lowerQ = ("Do you wish to change the list of lower case letters?\n"
               "Default is " + rules['lower'] + "\n" 
@@ -30,7 +31,8 @@ def main():
                 "Type in your list to change it, press Enter to keep default\n")
 
     minCharQ = ("Do you wish to change the minimum number of characters?\n"
-                "Default is " + str(rules['minchars']) + "\n" 
+                "Default is " + str(rules['minchars']) + "\n"
+                "Absolute minimun is 4\n"
                 "Type in your value to change it, press Enter to keep default\n")
 
     maxCharQ = ("Do you wish to change the maximum number of characters?\n"
@@ -55,6 +57,13 @@ def main():
                  "Sets are: lower, upper, numerals, and specialChars\n" 
                  "Enter as many as you want, pressing enter between each one\n")
 
+    swapQ = ("Do you have any character swaps you wish to allow?\n"
+             "EX: E is 3, a is @, \n"
+             "Put in the character to be replaced followed by a comma and the character to replace it\n"
+             "EX: E, 3\n"
+             "WARNING: This will not remove the other character from the list, just expand the vocabulary for the second character" 
+             "Enter as many as you want, pressing enter between each one\n")
+
     lower = input(lowerQ)
     if len(lower):
         rules['lower'] = charsInSet(rules['lower'], lower)
@@ -74,14 +83,18 @@ def main():
     minchars = input(minCharQ)
     if len(minchars):
         try:
-            rules['minchars'] = int(minchars)
+            if int(minchars) < 4:
+                print("ERROR: Value too small, setting to 4")
+            rules['minchars'] = max(int(minchars),4)
         except:
             print("Input must be an integer, using default value")
 
     maxchars = input(maxCharQ)
     if len(maxchars):
         try:
-            rules['maxchars'] = int(maxchars)
+            if int(maxchars) < rules['minchars']:
+                print("ERROR: Value too small, setting to the same as the min")
+            rules['maxchars'] = max(int(maxchars),rules['minchars'])
         except:
             print("Input must be an integer, using default value")
 
@@ -96,7 +109,7 @@ def main():
     while len(chardex):
         vals = chardex.split(",")
         rules['chardex'].append({"index" : int(vals[0]), "set" : vals[1].strip()})
-        chardex = input(chardexQ)
+        chardex = input()
 
     mincount = input(mincountQ)
     sumOfMins = 0
@@ -106,10 +119,16 @@ def main():
         sumOfMins += int(vals[0])
         if sumOfMins > rules['minchars']:
             print("WARNING:\n")
-            print("There are too many minimun requirments to allow for the password to be short.\n")
+            print("There are too many minimun requirements to allow for the password to be as short as allowed.\n")
             print("Updating minimum password size to " + str(sumOfMins))
             rules['minchars'] = sumOfMins
-        mincount = input(mincountQ)
+        mincount = input()
+
+    swap = input(swapQ)    
+    while len(swap):
+        vals = swap.split(",")
+        rules['swaps'].append({"oldChar" : vals[0].strip(), "newChar" : vals[1].strip()})
+        swap = input()
             
     ##Save to file
     with open('rules.txt', 'w') as outfile:
