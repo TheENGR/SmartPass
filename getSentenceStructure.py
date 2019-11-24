@@ -38,7 +38,7 @@ def getSentenceStructure(count):
 
     sentences = []
     while count > maxStruct1:
-        sentenceLen = random.randint(4,maxStruct1-1)
+        sentenceLen = random.randint(4,min(count-6,maxStruct1-1))
         sentences.append(sentenceLen)
         count -= (sentenceLen+1)
     if len(sentences) == 0:
@@ -76,7 +76,7 @@ def createStructure1(count):
         structure.append({'GT':1,'GTQ':11}) #ly advery for the verb
         
     structure.append({'GT':9,'GTQ':17}) # Past Tense Verb 
-    structure.append({'GT':2,'GTQ':0}) # ownerex: my, his
+    structure.append({'GT':2,'GTQ':0}) # owner ex: my, his
     
     if adjCount[0] > 0:
         adjs = createAdjArray(adjCount[0])

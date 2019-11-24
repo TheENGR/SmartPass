@@ -7,6 +7,9 @@ def getRandomizedCharOptionFromRules(numChars, rules):
     allowedCount = getMinViableCountAndRandRemainder(numChars, rules)
     out = tryAndGetCharOptions(numChars, rules,allowedCount)
     while len(out) == 0:
+        print("WARNING: Unable to create a password based off the chardex, repchars, and set mincount rules\n")
+        print("Please increase the length of the password or loosen those rules\n")
+        print("Trying again, press Cntrl+C to kill the program\n")
         out = tryAndGetCharOptions(numChars, rules,allowedCount)
     return out
 

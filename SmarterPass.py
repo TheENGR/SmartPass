@@ -38,29 +38,23 @@ elif numChars > rules['maxchars']:
 wordTypes = getRandomizedCharOptionFromRules(numChars, rules)
 structure = getSentenceStructure(numChars)
 
-print(wordTypes)
-print(structure)
-print()
-print()
-print()
-
 password = ""
 phrase = ""
 for i in range(numChars):
     lib = getWordChoices(wordTypes[i], structure[i]['GT'], structure[i]['GTQ'], rules)
-    if wordTypes[i] == 1:
-        lib.extend(getWordChoices(0, structure[i]['GT'], structure[i]['GTQ'], rules))
-    elif wordTypes[i] == 0 and structure[i]['GT'] == 6:
-        lib.extend(getWordChoices(1, structure[i]['GT'], structure[i]['GTQ'], rules))
-    #print("T = " + str(wordTypes[i]) + " GT = " + str(structure[i]['GT'])+ " GTQ = " + str(structure[i]['GTQ']) + "\n")
+    if len(lib) == 0:
+        print("ERROR, could not find a match, data below, please add new swaps or try again\n")
+        print("T = " + str(wordTypes[i]) + " GT = " + str(structure[i]['GT'])+ " GTQ = " + str(structure[i]['GTQ']) + "\n")
     selectedWord = secrets.choice(lib)
     password += selectedWord[1]
     if len(phrase) == 0:
         phrase = selectedWord[0]
     elif structure[i]['GT'] == 10:
+        phrase += selectedWord[0] + "\n"
+    elif phrase[-1] == "\n":
         phrase += selectedWord[0]
     else:
-        phrase += (" " + selectedWord[0])
+        phrase += " " + selectedWord[0]
 
 print(password)
 print(phrase)

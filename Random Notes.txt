@@ -1,3 +1,17 @@
 https://www.reddit.com/r/books/comments/a34ex1/p_is_for_pterodactyl_t_is_for_tsunami_the_worst/ 
 https://docs.python.org/3/library/secrets.html 
 https://xkcd.com/936/ 
+
+word order rules:
+https://www.gingersoftware.com/content/grammar-rules/adjectives/order-of-adjectives/
+https://dictionary.cambridge.org/us/grammar/british-grammar/adjectives-order
+
+Python Starters:
+https://www.practicepython.org/solution/2014/06/06/16-password-generator-solutions.html
+https://pynative.com/python-generate-random-string/
+
+Colors:
+https://color-ize.com/color-list.php#top
+
+Size:
+https://www.sightwordsgame.com/parts-of-speech/adjectives/size/

@@ -1,5 +1,8 @@
 import json
 from charsInSet import *
+from contains import *
+
+sets = ['lower','upper','numerals','specialChars']
 
 def main():
     rules = {}
@@ -61,7 +64,7 @@ def main():
              "EX: E is 3, a is @, \n"
              "Put in the character to be replaced followed by a comma and the character to replace it\n"
              "EX: E, 3\n"
-             "WARNING: This will not remove the other character from the list, just expand the vocabulary for the second character" 
+             "WARNING: This WILL remove the other character from the list, and expand the vocabulary for the second character" 
              "Enter as many as you want, pressing enter between each one\n")
 
     lower = input(lowerQ)
@@ -129,6 +132,26 @@ def main():
         vals = swap.split(",")
         rules['swaps'].append({"oldChar" : vals[0].strip(), "newChar" : vals[1].strip()})
         swap = input()
+
+    # Auto Swap missing lower and upper case combos
+    lower = "abcdefghijklmnopqrstuvwxyz"
+    upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    oldChars = ""
+    for swap in rules['swaps']:
+        oldChars += swap['oldChar']
+    print(oldChars)
+    for dex in range(len(lower)):
+        if containsAny(lower[dex],rules['lower']+oldChars) == 0 and containsAny(upper[dex],rules['upper']) == 1:
+            rules['swaps'].append({"oldChar" : lower[dex], "newChar" : upper[dex]})
+            oldChars += lower[dex]
+        if containsAny(upper[dex],rules['upper']+oldChars) == 0 and containsAny(lower[dex],rules['lower']) == 1:
+            rules['swaps'].append({"oldChar" : upper[dex], "newChar" : lower[dex]})
+            oldChars += upper[dex]
+
+    # Remove swaped out old chars 
+    for swap in rules['swaps']:
+        for s in sets:
+            rules[s] = rules[s].replace(swap['oldChar'],'')
             
     ##Save to file
     with open('rules.txt', 'w') as outfile:

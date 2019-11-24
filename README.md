@@ -1,16 +1,8 @@
 # SmartPass
 CS6387_FinalProject
 
-word order rules:
-https://www.gingersoftware.com/content/grammar-rules/adjectives/order-of-adjectives/
-https://dictionary.cambridge.org/us/grammar/british-grammar/adjectives-order
+Run SmarterPass.py to generate a password
+Delete the rules.txt file to create your own rules
 
-Python Starters:
-https://www.practicepython.org/solution/2014/06/06/16-password-generator-solutions.html
-https://pynative.com/python-generate-random-string/
-
-Colors:
-https://color-ize.com/color-list.php#top
-
-Size:
-https://www.sightwordsgame.com/parts-of-speech/adjectives/size/
+Feel free to add to the dictionary in SQL by running WriteData and copying the contents of temp.txt into createDB with a new header then running it. 
+The bigger the database the better! 
